@@ -14,7 +14,7 @@ def handle_recommend():
     customer_id = request.args.get("customer_id")
     print(customer_id)
     #TODO recommend products based on this id and respond
-    ret = {customer_id: ['product1', 'product2', 'product3']}
+    ret = ['product1', 'product2', 'product3']
     resp = Response(response=json.dumps(ret), status=200, mimetype="application/json")
     return resp
 
