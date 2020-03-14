@@ -5,44 +5,36 @@
     </b-jumbotron>
 
     <b-container fluid="sm">
-      <div class="person-wrap" ref="personWrap">
-          <ul>
-            <li v-for="product in recomms" :key="product">
-              <p>{{product}}</p>
-
-            </li>
-          </ul>
-      </div>
-    </b-container>
-
-    <!-- <b-container fluid="sm">
-      <b-carousel
-        id="carousel-1"
-        v-model="slide"
-        :interval="4000"
-        controls
-        indicators
-        background="#ffffff"
-        img-width="1024"
-        img-height="480"
-        style="text-shadow: 1px 1px 2px #333;"
-        @sliding-start="onSlideStart"
-        @sliding-end="onSlideEnd"
+      <b-carousel id="carousel1"
+                  style="text-shadow: 1px 1px 2px #333;"
+                  controls
+                  indicators
+                  background="#ffffff"
+                  :interval="4000"
+                  img-width="1024"
+                  img-height="480"
+                  v-model="slide"
+                  @sliding-start="onSlideStart"
+                  @sliding-end="onSlideEnd"
       >
 
-      <ul>
-        <li v-for="product in recomms" :key="product">
-          <b-carousel-slide
-            img-src="https://picsum.photos/1024/480/?image=58"
-          >
-            <b-carousel-slide-caption>
-              <h2>{{product}}</h2>
-            </b-carousel-slide-caption>
-          </b-carousel-slide>
-        </li>
-      </ul>
+      <b-carousel-slide v-for="product in recomms" :key="product.id">
+        <template v-slot:img>
+          <!-- <img v-for="image in images" :key="image.url" v-bind:src="image.url" v-bind:alt="image.alt" /> -->
+          <img v-if="product==='p1'" :src="images[0]" :key="image">
+          <img v-if="product==='p2'" :src="images[1]" :key="image">
+          <img v-if="product==='p3'" :src="images[2]" :key="image">
+          <img v-if="product==='product1'" :src="images[3]" :key="image">
+          <img v-if="product==='product2'" :src="images[4]" :key="image">
+          <img v-if="product==='product3'" :src="images[5]" :key="image">
+        </template>
+        <b-carousel-slide-caption>
+          <h2>{{product}}</h2>
+        </b-carousel-slide-caption>
+      </b-carousel-slide>
+
       </b-carousel>
-    </b-container> -->
+    </b-container>
 
     <b-jumbotron header="All Products"></b-jumbotron>
 
@@ -70,13 +62,26 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      images: [
+        "https://picsum.photos/1024/480/?image=52",
+        "https://picsum.photos/1024/480/?image=58",
+        "https://picsum.photos/1024/480/?image=55",
+        "https://picsum.photos/1024/480/?image=10",
+        "https://picsum.photos/1024/480/?image=12",
+        "https://picsum.photos/1024/480/?image=22",
+      ],
+      // images: [
+      //     { url: 'https://picsum.photos/1024/480/?image=52', alt: 'I love you nature' },
+      //     { url: 'https://picsum.photos/1024/480/?image=58', alt: 'Now with dog - Rosé' },
+      //     { url: 'https://picsum.photos/1024/480/?image=55', alt: 'Jeg er i Danmark' },
+      // ],
+      recomms: ['p1','p2','p3'],
       items: [
         {title: 'item1', description: 'item1-description'},
         {title: 'item2', description: 'item2-description'},
         {title: 'item3', description: 'item3-description'},
         {title: 'item4', description: 'item4-description'}
       ],
-      recomms: ['p1','p2','p3'],
       slide: 0,
       sliding: null,
     }
