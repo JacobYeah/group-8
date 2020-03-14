@@ -1,7 +1,7 @@
 <template>
     <div>
     <b-jumbotron header="Recommend for you">
-      <b-button variant="primary" @click="get_recommend()">refresh</b-button>
+      <b-button variant="outline-dark" @click="get_recommend()">refresh</b-button>
     </b-jumbotron>
 
     <b-container fluid="sm">
@@ -21,16 +21,20 @@
       <b-carousel-slide v-for="product in recomms" :key="product.id">
         <template v-slot:img>
           <!-- <img v-for="image in images" :key="image.url" v-bind:src="image.url" v-bind:alt="image.alt" /> -->
-          <img v-if="product==='p1'" :src="images[0]" :key="image">
-          <img v-if="product==='p2'" :src="images[1]" :key="image">
-          <img v-if="product==='p3'" :src="images[2]" :key="image">
-          <img v-if="product==='product1'" :src="images[3]" :key="image">
-          <img v-if="product==='product2'" :src="images[4]" :key="image">
-          <img v-if="product==='product3'" :src="images[5]" :key="image">
+          <b-img v-if="product==='p1'" :src="images[0].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='p2'" :src="images[1].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='p3'" :src="images[2].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='product1'" :src="images[3].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='product2'" :src="images[4].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='product3'" :src="images[5].src" :key="image" rounded></b-img>
         </template>
         <b-carousel-slide-caption>
           <h2>{{product}}</h2>
         </b-carousel-slide-caption>
+        <b-carousel-slide-text>
+          <p>{{product==='p1' ? images[0].caption: product==='p2' ? images[1].caption: product==='p3' ? images[2].caption: 'null'}}</p>
+        </b-carousel-slide-text>
+        <b-button href="#" variant="outline-light">buy</b-button>
       </b-carousel-slide>
 
       </b-carousel>
@@ -46,7 +50,7 @@
               <h2>{{item.title}}</h2>
             </b-card-text>
 
-            <b-button href="#" variant="primary">buy</b-button>
+            <b-button href="#" variant="light">buy</b-button>
           </b-card>
         </li>
       </ul>
@@ -56,25 +60,19 @@
 
 <script>
 import axios from 'axios';
-import BScroll from "better-scroll";
 
 export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
       images: [
-        "https://picsum.photos/1024/480/?image=52",
-        "https://picsum.photos/1024/480/?image=58",
-        "https://picsum.photos/1024/480/?image=55",
-        "https://picsum.photos/1024/480/?image=10",
-        "https://picsum.photos/1024/480/?image=12",
-        "https://picsum.photos/1024/480/?image=22",
+        {src: "https://picsum.photos/1024/480/?image=52", caption: "hello1"},
+        {src: "https://picsum.photos/1024/480/?image=58", caption: "hello2"},
+        {src: "https://picsum.photos/1024/480/?image=55", caption: "hello3"},
+        {src: "https://picsum.photos/1024/480/?image=10", caption: "hello4"},
+        {src: "https://picsum.photos/1024/480/?image=12", caption: "hello5"},
+        {src: "https://picsum.photos/1024/480/?image=22", caption: "hello6"},
       ],
-      // images: [
-      //     { url: 'https://picsum.photos/1024/480/?image=52', alt: 'I love you nature' },
-      //     { url: 'https://picsum.photos/1024/480/?image=58', alt: 'Now with dog - Rosé' },
-      //     { url: 'https://picsum.photos/1024/480/?image=55', alt: 'Jeg er i Danmark' },
-      // ],
       recomms: ['p1','p2','p3'],
       items: [
         {title: 'item1', description: 'item1-description'},
@@ -113,23 +111,6 @@ export default {
                 .catch(function (error) {
                   console.log(error);
                 });
-    },
-     personScroll() {
-      let width = 6 * 120;
-      this.$refs.personTab.style.width = width + "px";
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.personWrap, {
-            startX: 0,
-            click: true,
-            scrollX: true,
-            scrollY: false,
-            eventPassthrough: "vertical"
-          });
-        } else {
-          this.scroll.refresh();
-        }
-      });
     }
   }
 }
