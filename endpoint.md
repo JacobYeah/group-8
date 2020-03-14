@@ -24,6 +24,6 @@ application/json
 #### Body
 ```json
 {
-    "Customer_id": ["Product_id"]
+    ["Product_id"]
 }
 ```
