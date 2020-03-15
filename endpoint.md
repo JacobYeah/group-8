@@ -58,35 +58,4 @@ application/json
 }
 ```
 
-
-## PUT /db/buy
-add products to db
-
-### request
-
-#### Header
-```
-application/json
-```
-
-#### Body
-```
-{
-    SOME_PRODUCT_ID,
-}
-```
-
-### Resonse
-#### Header
-```
-application/json
-```
-
-#### Body
-```json
-{
-    "message" : "success"
-}
-```
-
 ### DB modal: UA1
