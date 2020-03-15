@@ -21,12 +21,12 @@
       <b-carousel-slide v-for="product in recomms" :key="product.id">
         <template v-slot:img>
           <!-- <img v-for="image in images" :key="image.url" v-bind:src="image.url" v-bind:alt="image.alt" /> -->
-          <b-img v-if="product==='p1'" :src="images[0].src" :key="image" rounded></b-img>
-          <b-img v-if="product==='p2'" :src="images[1].src" :key="image" rounded></b-img>
-          <b-img v-if="product==='p3'" :src="images[2].src" :key="image" rounded></b-img>
-          <b-img v-if="product==='product1'" :src="images[3].src" :key="image" rounded></b-img>
-          <b-img v-if="product==='product2'" :src="images[4].src" :key="image" rounded></b-img>
-          <b-img v-if="product==='product3'" :src="images[5].src" :key="image" rounded></b-img>
+          <b-img v-if="product==='p1'" :src="images[0].src" rounded></b-img>
+          <b-img v-if="product==='p2'" :src="images[1].src" rounded></b-img>
+          <b-img v-if="product==='p3'" :src="images[2].src" rounded></b-img>
+          <b-img v-if="product==='product1'" :src="images[3].src" rounded></b-img>
+          <b-img v-if="product==='product2'" :src="images[4].src" rounded></b-img>
+          <b-img v-if="product==='product3'" :src="images[5].src" rounded></b-img>
         </template>
         <b-carousel-slide-caption>
           <h2>{{product}}</h2>
@@ -50,7 +50,7 @@
               <h2>{{item.title}}</h2>
             </b-card-text>
 
-            <b-button href="#" variant="light">buy</b-button>
+            <b-button @click="handle_buy(item.title)" variant="light">buy</b-button>
           </b-card>
         </li>
       </ul>
@@ -84,11 +84,6 @@ export default {
       sliding: null,
     }
   },
-  created() {
-    this.$nextTick(() => {
-      this.personScroll();
-    });
-  },
   methods: {
     onSlideStart (slide) {
       this.sliding = true
@@ -104,13 +99,26 @@ export default {
                     }
                 })
                 .then((response) => {
-                                    console.log(this.recomms);
+                  console.log(this.recomms);
                   this.recomms = response.data;
                   console.log(this.recomms);
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
+    },
+    handle_buy(product) {
+      console.log('Clicked', product);
+      const buy_url = 'http://localhost:3000/db/buy'
+      axios.put(buy_url, {
+        data: product
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
 }
